@@ -30,6 +30,10 @@ class ChassisBase(device_base.DeviceBase):
     REBOOT_CAUSE_HARDWARE_RESET_FROM_ASIC = "Reset from ASIC"
     REBOOT_CAUSE_NON_HARDWARE = "Non-Hardware"
 
+    AIRFLOW_INTAKE = "intake"
+    AIRFLOW_EXHAUST = "exhaust"
+    AIRFLOW_NOT_APPLICABLE = "N/A"
+
     def __init__(self):
         # List of ComponentBase-derived objects representing all components
         # available on the chassis
@@ -354,6 +358,16 @@ class ChassisBase(device_base.DeviceBase):
                              index, len(self._fan_drawer_list)-1))
 
         return fan_drawer
+
+    def get_airflow_direction(self):
+        """
+        Retrieves fan air flow direction for the chassis
+
+        Returns:
+            A string, either AIRFLOW_INTAKE or AIRFLOW_EXHAUST
+            depending on expected fan airflow
+        """
+        raise NotImplementedError
 
     ##############################################
     # PSU methods
